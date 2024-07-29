@@ -1,7 +1,7 @@
 // Commands/bookSumary.js
 const { SlashCommandBuilder, CommandInteraction, Client } = require("discord.js");
 const axios = require('axios');
-const { incrementBookSummaryCount, getBookSummaryCount } = require('../Utils/mongodb');
+const { incrementBookSummaryCount, getBookSummaryCount } = require('../utils/mongodb');
 
 module.exports = {
   data: new SlashCommandBuilder()

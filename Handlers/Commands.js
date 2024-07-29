@@ -1,8 +1,13 @@
-const { SlashCommandBuilder, Routes } = require("discord.js");
-const { REST } = require("@discordjs/rest");
-const fs = require("fs");
-const path = require("path");
-const config = require("../config.json");
+const { Routes } = require('discord.js');
+const { REST } = require('@discordjs/rest');
+const fs = require('fs');
+const path = require('path');
+require('dotenv').config(); // Charger les variables d'environnement
+
+const token = process.env.TOKEN; // Charger le token
+const clientId = process.env.CLIENT_ID; // Charger le client ID
+
+console.log(`Client ID from .env: ${clientId}`); // Vérifier le client ID
 
 module.exports = async (client) => {
   let commandArray = [];
@@ -20,14 +25,14 @@ module.exports = async (client) => {
     commandArray.push(commandFile.data.toJSON());
   }
 
-  const rest = new REST({ version: "10" }).setToken(process.env.token);
+  const rest = new REST({ version: "10" }).setToken(token);
 
   try {
-    console.log(`[${config.AppName}]: started refreshing application (/) commands.`);
+    console.log(`[King's Bot]: started refreshing application (/) commands.`);
 
-    await rest.put(Routes.applicationCommands(config.clientId), { body: commandArray });
+    await rest.put(Routes.applicationCommands(clientId), { body: commandArray });
 
-    console.log(`[${config.AppName}]: ${commandArray.length} commands loaded!`);
+    console.log(`[King's Bot]: ${commandArray.length} commands loaded!`);
   } catch (error) {
     console.log(error);
   }
