@@ -1,0 +1,25 @@
+{
+  "name": "kings-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/rest": "^2.3.0",
+    "axios": "^1.7.2",
+    "discord.js": "^14.15.3",
+    "dotenv": "^16.4.5",
+    "fs": "^0.0.1-security",
+    "mongodb": "^6.8.0",
+    "mongoose": "^8.5.1",
+    "mysql2": "^3.10.3",
+    "node-fetch": "^3.3.2",
+    "sqlite3": "^5.1.7",
+    "string-similarity": "^4.0.4"
+  }
+}
