@@ -1,7 +1,7 @@
 // Commands/bookSumary.js
 const { SlashCommandBuilder, CommandInteraction, Client } = require("discord.js");
 const axios = require('axios');
-const { incrementBookSummaryCount, getBookSummaryCount } = require('../utils/mongodb');
+const { incrementBookSummaryCount, getBookSummaryCount } = require('../Utils/mongodb');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -15,7 +15,7 @@ module.exports = {
    * @param {CommandInteraction} interaction
    * @param {Client} client
    */
-  
+
   async execute(interaction, client) {
     const title = interaction.options.getString('title').toLowerCase();
     const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
