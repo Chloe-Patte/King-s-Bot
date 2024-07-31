@@ -2,12 +2,12 @@ const { Routes } = require('discord.js');
 const { REST } = require('@discordjs/rest');
 const fs = require('fs');
 const path = require('path');
-require('dotenv').config(); // Charger les variables d'environnement
+require('dotenv').config();
 
-const token = process.env.TOKEN; // Charger le token
-const clientId = process.env.CLIENT_ID; // Charger le client ID
+const token = process.env.TOKEN;
+const clientId = process.env.CLIENT_ID;
 
-console.log(`Client ID from .env: ${clientId}`); // Vérifier le client ID
+console.log(`Client ID from .env: ${clientId}`);
 
 module.exports = async (client) => {
   let commandArray = [];

@@ -1,4 +1,3 @@
-// database.js
 const sqlite3 = require('sqlite3').verbose();
 
 const db = new sqlite3.Database('./library.db', (err) => {
@@ -14,7 +13,6 @@ const db = new sqlite3.Database('./library.db', (err) => {
       if (err) {
         console.error('Error creating table', err.message);
       } else {
-        // Add the normalized_title column if it doesn't exist
         db.run(`ALTER TABLE library ADD COLUMN normalized_title TEXT`, (err) => {
           if (err && err.message.includes('duplicate column name')) {
             console.log('Column normalized_title already exists.');
@@ -29,7 +27,6 @@ const db = new sqlite3.Database('./library.db', (err) => {
   }
 });
 
-// Ajoutez cette partie après la création ou la modification de la table pour normaliser les titres existants
 db.serialize(() => {
   db.each(`SELECT rowid, book_title FROM library`, (err, row) => {
     if (err) {

@@ -1,4 +1,3 @@
-// Commands/addBook.js
 const { SlashCommandBuilder } = require('discord.js');
 const axios = require('axios');
 const db = require('../database');
@@ -50,14 +49,29 @@ module.exports = {
       const bookTitle = book.volumeInfo.title; // Conserver le titre original
       const bookAuthors = book.volumeInfo.authors.join(', ');
 
-      console.log(`Ajout du livre "${bookTitle}" par ${bookAuthors} pour l'utilisateur ${userId}`);
+      console.log(`Vérification si le livre "${bookTitle}" par ${bookAuthors} existe déjà pour l'utilisateur ${userId}`);
       
-      db.run(`INSERT INTO library (user_id, book_title, book_authors, normalized_title) VALUES (?, ?, ?, ?)`, [userId, bookTitle, bookAuthors, normalizeTitle(bookTitle)], (err) => {
+      // Vérification des doublons
+      db.get(`SELECT * FROM library WHERE user_id = ? AND normalized_title = ?`, [userId, normalizeTitle(bookTitle)], (err, row) => {
         if (err) {
-          console.error('Erreur lors de l\'ajout du livre :', err);
-          return interaction.editReply(`Erreur lors de l'ajout du livre : ${err.message}`);
+          console.error('Erreur lors de la vérification du livre :', err);
+          return interaction.editReply(`Erreur lors de la vérification du livre : ${err.message}`);
         }
-        interaction.editReply(`Le livre "${bookTitle}" par ${bookAuthors} a été ajouté à votre bibliothèque.`);
+        
+        if (row) {
+          console.log(`Le livre "${bookTitle}" est déjà présent dans la bibliothèque de l'utilisateur ${userId}`);
+          return interaction.editReply(`Le livre "${bookTitle}" est déjà présent dans votre bibliothèque.`);
+        } else {
+          // Ajout du livre à la base de données
+          db.run(`INSERT INTO library (user_id, book_title, book_authors, normalized_title) VALUES (?, ?, ?, ?)`, [userId, bookTitle, bookAuthors, normalizeTitle(bookTitle)], (err) => {
+            if (err) {
+              console.error('Erreur lors de l\'ajout du livre :', err);
+              return interaction.editReply(`Erreur lors de l'ajout du livre : ${err.message}`);
+            }
+            console.log(`Ajout du livre "${bookTitle}" par ${bookAuthors} pour l'utilisateur ${userId}`);
+            interaction.editReply(`Le livre "${bookTitle}" par ${bookAuthors} a été ajouté à votre bibliothèque.`);
+          });
+        }
       });
     } catch (error) {
       console.error('Erreur lors de l\'ajout du livre :', error);

@@ -1,4 +1,3 @@
-// Commands/bookSumary.js
 const { SlashCommandBuilder, CommandInteraction, Client } = require("discord.js");
 const axios = require('axios');
 const { incrementBookSummaryCount, getBookSummaryCount } = require('../Utils/mongodb');
@@ -51,14 +50,14 @@ module.exports = {
       const book = frenchBooks[0].volumeInfo;
       let summary = book.description;
 
-      // Truncate the summary if it exceeds 2000 characters
+      // Troncature des résumés s'ils dépassent les 2000 charactères
       if (summary.length > 1950) {
         summary = summary.substring(0, 1950) + '...';
       }
 
       const content = `**${book.title}** par Stephen King\n\n${summary}`;
 
-      // Increment the book summary count and get the updated count
+      // Incremente le compteur des résumés
       await incrementBookSummaryCount(title);
       const count = await getBookSummaryCount(title);
 
@@ -67,7 +66,7 @@ module.exports = {
     } catch (error) {
       console.error('Error occurred:', error);
 
-      // Assurez-vous de ne pas essayer de répondre deux fois
+      // Ne pas répondre deux fois à la requête
       try {
         if (interaction.deferred || interaction.replied) {
           await interaction.editReply({ content: `Une erreur est survenue lors de la récupération du résumé du livre. Veuillez réessayer plus tard.` });
