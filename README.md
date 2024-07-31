@@ -41,7 +41,7 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 
 - Ajoutez votre bot à un serveur Discord.
 - Utilisez la commande `/addbook` suivie du titre du livre pour ajouter un livre de Stephen King à votre bibliothèque personnelle.
-- Utilisez la commande `/bookSumary` suivie du titre du livre pour consulter le résumé du livre de Stephen King grâce à l'API Google Books.
+- Utilisez la commande `/bookSummary` suivie du titre du livre pour consulter le résumé du livre de Stephen King grâce à l'API Google Books.
 - Utilisez la commande `/removeBook` suivie du titre du livre pour supprimer un livre de Stephen King à votre bibliothèque personnelle.
 - Utilisez la commande `/listBook` pour accéder à votre liste personnelle.
 - Utilisez la commande `/help` pour afficher la liste de toutes les commandes disponibles.
