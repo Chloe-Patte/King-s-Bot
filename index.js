@@ -1,6 +1,6 @@
 require("dotenv").config();
 const {Client, Partials, GatewayIntentBits, Events, Collection} = require("discord.js");
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 10000;
 
 const token = process.env.TOKEN;
 console.log(`Token from .env: ${process.env.TOKEN}`);
